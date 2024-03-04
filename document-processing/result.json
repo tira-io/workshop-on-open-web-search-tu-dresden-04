@@ -1,0 +1,38 @@
+{
+    "doc-1": {
+        "automated_readability_index": 9.2, 
+        "flesch_kincaid_grade": 6.8, 
+        "flesch_reading_formula": 89.42, 
+        "gunning_fog": 9.6
+    }, 
+    "doc-2": {
+        "automated_readability_index": 7.3, 
+        "flesch_kincaid_grade": 7.9, 
+        "flesch_reading_formula": 75.54, 
+        "gunning_fog": 10.3
+    }, 
+    "doc-3": {
+        "automated_readability_index": 8.0, 
+        "flesch_kincaid_grade": 6.4, 
+        "flesch_reading_formula": 68.77, 
+        "gunning_fog": 8.04
+    }, 
+    "doc-4": {
+        "automated_readability_index": 15.2, 
+        "flesch_kincaid_grade": 9.9, 
+        "flesch_reading_formula": 59.64, 
+        "gunning_fog": 10.0
+    }, 
+    "doc-5": {
+        "automated_readability_index": 16.4, 
+        "flesch_kincaid_grade": 11.8, 
+        "flesch_reading_formula": 59.98, 
+        "gunning_fog": 12.63
+    }, 
+    "doc-6": {
+        "automated_readability_index": 11.1, 
+        "flesch_kincaid_grade": 8.3, 
+        "flesch_reading_formula": 69.11, 
+        "gunning_fog": 9.71
+    }
+}
