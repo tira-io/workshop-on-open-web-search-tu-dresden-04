@@ -3,11 +3,12 @@
 from tira.third_party_integrations import ir_datasets, get_output_directory
 from pathlib import Path
 import pandas as pd
+import textstat as ts
 
 
 def process_document(document):
     # Dummy processing of documents: classify each document as spam
-    return {'docno': document.doc_id, 'label': 'spam'}
+    return {'docno': document.doc_id, 'label': 'spam', 'flesch-reading-formula': ts.flesch_reading_ease(document.text)}
 
 
 def process_documents(document_iter):
@@ -23,6 +24,7 @@ if __name__ == '__main__':
     
     # Document processors persist their results in a file documents.jsonl.gz in the output directory.
     output_file = Path(output_dir) / 'documents.jsonl.gz'
+    
     
     # You can pass as many additional arguments to your program, e.g., via argparse, to modify the behaviour
     

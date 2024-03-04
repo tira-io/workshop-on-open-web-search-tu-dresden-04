@@ -6,8 +6,8 @@ import pandas as pd
 import textstat as ts
 
 def score_query_document_pair(query, document_text, score_of_previous_stage):
-    score = ts.flesch_reading_ease(document_text)
-    return score
+    # Our baseline re-ranker just emits 1 + the score of the previous ranker.
+    return 1 + score_of_previous_stage
 
 if __name__ == '__main__':
     # In the TIRA sandbox, this is the injected re-ranking dataset, injected via the environment variable TIRA_INPUT_DIRECTORY
