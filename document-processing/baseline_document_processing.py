@@ -13,13 +13,17 @@ def process_document(document):
     doc_ranking[document.doc_id]={'flesch_reading_formula': ts.flesch_reading_ease(document.text), 
                                   'flesch_kincaid_grade': ts.flesch_kincaid_grade(document.text), 
                                   'gunning_fog': ts.gunning_fog(document.text),
-                                  'smog_index': ts.smog_index(document.text),
                                   'automated_readability_index': ts.automated_readability_index(document.text)}
     return {'docno': document.doc_id, 'label': 'spam'}
 
 
 def process_documents(document_iter):
     return pd.DataFrame([process_document(i) for i in document_iter])
+
+
+def convert_result_dict_to_df():
+    df = pd.DataFrame.from_dict(doc_ranking, orient='index')
+    print(df)
 
 
 if __name__ == '__main__':
@@ -38,4 +42,4 @@ if __name__ == '__main__':
     processed_documents = process_documents(dataset.docs_iter())
     processed_documents.to_json(output_file, lines=True, orient='records')
     pprint(doc_ranking)
-    
+    convert_result_dict_to_df()    
