@@ -5,6 +5,7 @@ from pathlib import Path
 import pandas as pd
 import textstat as ts
 from pprint import pprint 
+import matplotlib.pyplot as plt
 
 doc_ranking=dict()
 
@@ -24,7 +25,12 @@ def process_documents(document_iter):
 def convert_result_dict_to_df():
     df = pd.DataFrame.from_dict(doc_ranking, orient='index')
     print(df)
+    return df
 
+def plot_data_easy(df):
+    fig = df.plot(kind='bar',  
+        figsize=(20, 16), fontsize=26).get_figure()
+    fig.savefig('test.pdf')
 
 if __name__ == '__main__':
     # In the TIRA sandbox, this is the injected ir_dataset, injected via the environment variable TIRA_INPUT_DIRECTORY
@@ -42,4 +48,6 @@ if __name__ == '__main__':
     processed_documents = process_documents(dataset.docs_iter())
     processed_documents.to_json(output_file, lines=True, orient='records')
     pprint(doc_ranking)
-    convert_result_dict_to_df()    
+    df = convert_result_dict_to_df() 
+    plot_data_easy(df)   
+    
