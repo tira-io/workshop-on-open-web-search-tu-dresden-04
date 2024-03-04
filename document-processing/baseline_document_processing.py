@@ -15,7 +15,13 @@ def process_document(document):
     doc_ranking[document.doc_id]={'flesch_reading_formula': ts.flesch_reading_ease(document.text), 
                                   'flesch_kincaid_grade': ts.flesch_kincaid_grade(document.text), 
                                   'gunning_fog': ts.gunning_fog(document.text),
-                                  'automated_readability_index': ts.automated_readability_index(document.text)}
+                                  'automated_readability_index': ts.automated_readability_index(document.text),
+                                  'coleman_liau_index': ts.coleman_liau_index(document.text),
+                                  'linsear_write_formula': ts.linsear_write_formula(document.text),
+                                  'dale_chall_readability_score': ts.dale_chall_readability_score(document.text),
+                                  'text_standard': ts.text_standard(document.text, float_output=True),
+                                  'spache_readability': ts.spache_readability(document.text),
+                                  'mcalpine_eflaw': ts.mcalpine_eflaw(document.text)}
     return {'docno': document.doc_id, 'label': 'spam'}
 
 
