@@ -5,10 +5,12 @@ from pathlib import Path
 import pandas as pd
 import textstat as ts
 
+doc_ranking=dict()
 
 def process_document(document):
     # Dummy processing of documents: classify each document as spam
-    return {'docno': document.doc_id, 'label': 'spam', 'flesch-reading-formula': ts.flesch_reading_ease(document.text)}
+    doc_ranking[document.doc_id]={'flesch_reading_formula': ts.flesch_reading_ease(document.text), 'flesch_kincaid_grade': ts.flesch_kincaid_grade(document.text), 'gunning_fog': ts.gunning_fog(document.text)}
+    return {'docno': document.doc_id, 'label': 'spam'}
 
 
 def process_documents(document_iter):
@@ -25,10 +27,10 @@ if __name__ == '__main__':
     # Document processors persist their results in a file documents.jsonl.gz in the output directory.
     output_file = Path(output_dir) / 'documents.jsonl.gz'
     
-    
     # You can pass as many additional arguments to your program, e.g., via argparse, to modify the behaviour
     
     # process the documents, store results at expected location.
     processed_documents = process_documents(dataset.docs_iter())
     processed_documents.to_json(output_file, lines=True, orient='records')
+    print(doc_ranking)
     
