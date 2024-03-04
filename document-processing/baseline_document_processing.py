@@ -9,7 +9,11 @@ doc_ranking=dict()
 
 def process_document(document):
     # Dummy processing of documents: classify each document as spam
-    doc_ranking[document.doc_id]={'flesch_reading_formula': ts.flesch_reading_ease(document.text), 'flesch_kincaid_grade': ts.flesch_kincaid_grade(document.text), 'gunning_fog': ts.gunning_fog(document.text)}
+    doc_ranking[document.doc_id]={'flesch_reading_formula': ts.flesch_reading_ease(document.text), 
+                                  'flesch_kincaid_grade': ts.flesch_kincaid_grade(document.text), 
+                                  'gunning_fog': ts.gunning_fog(document.text),
+                                  'smog_index': ts.smog_index(document.text),
+                                  'automated_readability_index': ts.automated_readability_index(document.text)}
     return {'docno': document.doc_id, 'label': 'spam'}
 
 
