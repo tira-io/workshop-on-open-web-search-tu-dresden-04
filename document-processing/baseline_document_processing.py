@@ -4,6 +4,7 @@ from tira.third_party_integrations import ir_datasets, get_output_directory
 from pathlib import Path
 import pandas as pd
 import textstat as ts
+from pprint import pprint 
 
 doc_ranking=dict()
 
@@ -36,5 +37,5 @@ if __name__ == '__main__':
     # process the documents, store results at expected location.
     processed_documents = process_documents(dataset.docs_iter())
     processed_documents.to_json(output_file, lines=True, orient='records')
-    print(doc_ranking)
+    pprint(doc_ranking)
     
