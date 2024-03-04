@@ -21,11 +21,12 @@ def process_document(document):
 def process_documents(document_iter):
     return pd.DataFrame([process_document(i) for i in document_iter])
 
-
+# convert the dictionary to a Dataframe, so we can visualize the result as a bar graph later
 def convert_result_dict_to_df():
     df = pd.DataFrame.from_dict(doc_ranking, orient='index')
     print(df)
 
+# Create result.json 
 def create_result_json():
     with open("result.json", "w") as write_file:
         json.dump(doc_ranking, write_file, indent=4, separators=(", ", ": "), sort_keys=True)
