@@ -3,6 +3,7 @@
 from tira.third_party_integrations import load_rerank_data, persist_and_normalize_run
 from pathlib import Path
 import pandas as pd
+import textstat as ts
 
 def score_query_document_pair(query, document_text, score_of_previous_stage):
     # Our baseline re-ranker just emits 1 + the score of the previous ranker.
