@@ -1,3 +1,5 @@
+import unittest
+
 
 # here are some sample documents
 
@@ -8,5 +10,8 @@ t_doc_kids = "Onions might taste good but they can be painful to chop. A gas is 
 t_doc_inappropriate_for_kids = "bitch, fuck, "
 t_doc_colloquial = "y u always mad????"
 
-def test01():
-    return 0
+
+class Test_Readability_Func(unittest.TestCase):
+
+    def test_forsmth(self):
+        self.assertEqual(1, 1)
