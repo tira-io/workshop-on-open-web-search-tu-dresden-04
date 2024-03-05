@@ -25,16 +25,19 @@ class Test_Readability_Func(unittest.TestCase):
     def test_grade_levels(self):
         # grade level necessary for comprehension, score appr. grade
         self.assertLessEqual(ts.automated_readability_index(t_doc_teen1), 10)
+        self.assertTrue(ts.flesch_kincaid_grade(t_doc_teen1) == range(5, 10))
+        self.assertTrue(ts.gunning_fog(t_doc_teen2) == range(5, 10))
+        self.assertTrue(ts.coleman_liau_index(t_doc_teen3) == range(5, 10))
+        self.assertLessEqual(ts.linsear_write_formula(t_doc_kids1), 4)
+        self.assertTrue(ts.text_standard(t_doc_teen1) == range(5, 10))
+
+        # grade level, for children up to grade 4
+        self.assertTrue(ts.spache_readability(t_doc_kids2) == range(1, 4))
 
         # score proportional to grade, < 4.9: <4th grade, 9.0-9.9: college student
         self.assertLessEqual(ts.dale_chall_readability_score(t_doc_kids1), 6.9)
         self.assertGreaterEqual(ts.dale_chall_readability_score(t_doc_academic2), 9)
-
-
-        """          'flesch_kincaid_grade': ts.flesch_kincaid_grade(document.text), 
-            'gunning_fog': ts.gunning_fog(document.text),
-            'coleman_liau_index': ts.coleman_liau_index(document.text),
-            'linsear_write_formula': ts.linsear_write_formula(document.text),
-            'text_standard': ts.text_standard(document.text, float_output=True),
-            'spache_readability': ts.spache_readability(document.text),
-            'mcalpine_eflaw': ts.mcalpine_eflaw(document.text)}"""
+        
+        # readability for a foreign learner of English, recommended score < 25
+        self.assertLessEqual(ts.mcalpine_eflaw(t_doc_teen3), 25)
+        self.assertLessEqual(ts.mcalpine_eflaw(t_doc_kids3), 25)
