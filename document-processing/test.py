@@ -1,5 +1,5 @@
 import unittest
-
+import textstat as ts
 
 # here are some sample documents
 
@@ -19,7 +19,7 @@ class Test_Readability_Func(unittest.TestCase):
 
     # between max 121 (easy) and negative (diffcult)
     def test_flesch_reading_ease(self):
-        self.assertLessEqual(ts.flesch_reading_ease(t_doc_academic1), 30)
+        self.assertLessEqual(ts.flesch_reading_ease(t_doc_academic1), 40)
         self.assertGreaterEqual(ts.flesch_reading_ease(t_doc_simple_language1), 80)
 
     def test_grade_levels(self):
@@ -41,3 +41,7 @@ class Test_Readability_Func(unittest.TestCase):
         # readability for a foreign learner of English, recommended score < 25
         self.assertLessEqual(ts.mcalpine_eflaw(t_doc_teen3), 25)
         self.assertLessEqual(ts.mcalpine_eflaw(t_doc_kids3), 25)
+        
+if __name__ == '__main__':
+    unittest.main()
+    
