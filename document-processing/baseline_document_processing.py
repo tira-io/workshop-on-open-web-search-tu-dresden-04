@@ -59,7 +59,6 @@ if __name__ == '__main__':
     
     # process the documents, store results at expected location.
     processed_documents = process_documents(dataset.docs_iter())
+    plot_data_easy(processed_documents)
     processed_documents.to_json(output_file, lines=True, orient='records')
-    #df = convert_result_dict_to_df(data) 
-    #plot_data_easy(df)  
-    #create_result_json()    
+
