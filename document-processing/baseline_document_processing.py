@@ -8,6 +8,7 @@ from pprint import pprint
 import matplotlib.pyplot as plt
 import json
 import gzip
+from tqdm import tqdm
 
 
 def process_document(document):
@@ -26,12 +27,8 @@ def process_document(document):
 
 
 def process_documents(document_iter):
-    return pd.DataFrame([process_document(i) for i in document_iter])
+    return pd.DataFrame([process_document(i) for i in tqdm(document_iter)])
 
-# convert the dictionary to a Dataframe, so we can visualize the result as a bar graph later
-def convert_result_dict_to_df(output_file):
-    df = pd.DataFrame.from_dict(output_file, orient='index')
-    return df
 
 # plot the data in an easy bar plot
 def plot_data_easy(df):
@@ -39,12 +36,7 @@ def plot_data_easy(df):
         figsize=(20, 16), fontsize=26).get_figure()
     fig.savefig('test.pdf')
     
-# Create result.json 
-def create_result_json():
-    with open("result.json", "w") as write_file:
-        json.dump(output_file, write_file, indent=4, separators=(", ", ": "), sort_keys=True)
-
-
+    
 if __name__ == '__main__':
     # In the TIRA sandbox, this is the injected ir_dataset, injected via the environment variable TIRA_INPUT_DIRECTORY
     dataset = ir_datasets.load('workshop-on-open-web-search/document-processing-20231027-training')

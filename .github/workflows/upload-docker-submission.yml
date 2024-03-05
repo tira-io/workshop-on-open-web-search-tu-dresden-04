@@ -5,7 +5,7 @@ on:
       dockerpath:
         description: The path to the directory where the Docker image should be build. Should contain a Dockerfile that specifies everything.
         required: true
-        default: query-processing
+        default: document-processing
 
 jobs:
   docker-build:
