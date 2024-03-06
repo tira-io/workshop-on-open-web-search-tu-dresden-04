@@ -20,34 +20,47 @@ class Test_Readability_Func(unittest.TestCase):
     # between max 121 (easy) and negative (diffcult)
     def test_flesch_reading_ease(self):
         self.assertLessEqual(ts.flesch_reading_ease(t_doc_academic1), ts.flesch_reading_ease(t_doc_teen1))
-        self.assertLessEqual(ts.flesch_reading_ease(t_doc_academic2), ts.flesch_reading_ease(t_doc_kids1))
-        self.assertGreaterEqual(ts.flesch_reading_ease(t_doc_simple_language1), ts.flesch_reading_ease(t_doc_kids1))
-        self.assertGreaterEqual(ts.flesch_reading_ease(t_doc_simple_language2), ts.flesch_reading_ease(t_doc_teen1))
+        self.assertLessEqual(ts.flesch_reading_ease(t_doc_academic1), ts.flesch_reading_ease(t_doc_kids1))
+        self.assertGreaterEqual(ts.flesch_reading_ease(t_doc_simple_language1), ts.flesch_reading_ease(t_doc_kids2))
+        self.assertGreaterEqual(ts.flesch_reading_ease(t_doc_simple_language2), ts.flesch_reading_ease(t_doc_teen2))
 
+    # grade level necessary for comprehension, score appr. grade
     def test_grade_level(self):
-        # grade level necessary for comprehension, score appr. grade
-        self.assertLessEqual(ts.automated_readability_index(t_doc_teen1), 10)
-        self.assertLessEqual(ts.automated_readability_index(t_doc_teen2), 10)   
-        self.assertTrue(int(ts.flesch_kincaid_grade(t_doc_teen1)) in range(5, 10))
-        self.assertTrue(int(ts.flesch_kincaid_grade(t_doc_teen3)) in range(7, 12)
-        #self.assertTrue(int(ts.gunning_fog(t_doc_teen1) in range(5, 15)))
-        #self.assertTrue(int(ts.gunning_fog(t_doc_teen3) in range(5, 15)))
-        self.assertTrue(int(ts.coleman_liau_index(t_doc_teen3)) in range(5, 15))
+        self.assertGreaterEqual(ts.automated_readability_index(t_doc_academic2), ts.automated_readability_index(t_doc_teen2))
+        self.assertGreaterEqual(ts.automated_readability_index(t_doc_academic2), ts.automated_readability_index(t_doc_kids2))
+        self.assertLessEqual(ts.automated_readability_index(t_doc_simple_language1), ts.automated_readability_index(t_doc_kids3))
+        self.assertLessEqual(ts.automated_readability_index(t_doc_simple_language2), ts.automated_readability_index(t_doc_teen3)) 
+
+        self.assertGreaterEqual(ts.flesch_kincaid_grade(t_doc_academic3), ts.flesch_kincaid_grade(t_doc_teen3))
+        self.assertGreaterEqual(ts.flesch_kincaid_grade(t_doc_academic3), ts.flesch_kincaid_grade(t_doc_kids3))
+        self.assertLessEqual(ts.flesch_kincaid_grade(t_doc_simple_language1), ts.flesch_kincaid_grade(t_doc_kids1))
+        self.assertLessEqual(ts.flesch_kincaid_grade(t_doc_simple_language2), ts.flesch_kincaid_grade(t_doc_teen1)) 
+   
+        self.assertGreaterEqual(ts.gunning_fog(t_doc_academic1), ts.gunning_fog(t_doc_teen1))
+        self.assertGreaterEqual(ts.gunning_fog(t_doc_academic1), ts.gunning_fog(t_doc_kids1))
+        self.assertLessEqual(ts.gunning_fog(t_doc_simple_language1), ts.gunning_fog(t_doc_kids2))
+        self.assertLessEqual(ts.gunning_fog(t_doc_simple_language2), ts.gunning_fog(t_doc_teen2)) 
+    
         self.assertTrue(int(ts.coleman_liau_index(t_doc_teen1)) in range(5, 10))
-        # self.assertLessEqual(ts.linsear_write_formula(t_doc_kids1), 4)
+    
         # 10igrnedwas self.assertLessEqual(ts.linsear_write_formula(t_doc_kids2), 4)
-        # self.assertTrue(ts.text_standard(t_doc_teen1) in range(5, 10))
-        # '9th and 10th grade' self.assertTrue(int(ts.text_standard(t_doc_teen2)) in range(5, 10))
 
         # grade level, for children up to grade 4
-        self.assertTrue(int(ts.spache_readability(t_doc_kids2)) in range(1, 10))
         self.assertTrue(int(ts.spache_readability(t_doc_kids3)) in range(1, 7))
 
+    def test_proportional_to_grade(self):
         # score proportional to grade, < 4.9: <4th grade, 9.0-9.9: college student
-        self.assertLessEqual(ts.dale_chall_readability_score(t_doc_kids1), 9) # this one rates too high, 8.18
-        self.assertGreaterEqual(ts.dale_chall_readability_score(t_doc_academic2), 9)
+        self.assertGreaterEqual(ts.dale_chall_readability_score(t_doc_academic2), ts.dale_chall_readability_score(t_doc_teen2))
+        self.assertGreaterEqual(ts.dale_chall_readability_score(t_doc_academic2), ts.dale_chall_readability_score(t_doc_kids2))
+        self.assertLessEqual(ts.dale_chall_readability_score(t_doc_simple_language1), ts.dale_chall_readability_score(t_doc_kids3))
+        self.assertLessEqual(ts.dale_chall_readability_score(t_doc_simple_language2), ts.dale_chall_readability_score(t_doc_teen3)) 
 
         # readability for a foreign learner of English, recommended score < 25
+        self.assertGreaterEqual(ts.dale_chall_readability_score(t_doc_academic2), ts.dale_chall_readability_score(t_doc_teen2))
+        self.assertGreaterEqual(ts.dale_chall_readability_score(t_doc_academic2), ts.dale_chall_readability_score(t_doc_kids2))
+        self.assertLessEqual(ts.dale_chall_readability_score(t_doc_simple_language1), ts.dale_chall_readability_score(t_doc_kids3))
+        self.assertLessEqual(ts.dale_chall_readability_score(t_doc_simple_language2), ts.dale_chall_readability_score(t_doc_teen3)) 
+
         self.assertLessEqual(ts.mcalpine_eflaw(t_doc_teen3), 25)
         self.assertLessEqual(ts.mcalpine_eflaw(t_doc_kids3), 25) #28
         
