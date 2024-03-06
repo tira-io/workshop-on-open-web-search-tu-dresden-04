@@ -12,8 +12,6 @@ import gzip
 from tqdm import tqdm
 
 nlp=spacy.load("en_core_web_sm")
-import en_core_web_sm
-nlp = en_core_web_sm
 
 def process_dataset(document_iter):
     # Dummy processing of documents: classify each document as spam
@@ -22,8 +20,7 @@ def process_dataset(document_iter):
 
 
 def process_metrics(document_iter):
-    nlp = spacy.blank("da")
-    nlp.add_pipe("textdescriptives/readability")
+    nlp.add_pipe("textdescriptives/all")
     docs = nlp.pipe([doc.text[:5000] for doc in tqdm(document_iter)])
     metrics = td.extract_df(docs, include_text = False)
     return metrics
