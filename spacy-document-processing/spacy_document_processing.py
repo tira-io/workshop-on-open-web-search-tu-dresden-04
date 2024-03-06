@@ -15,17 +15,18 @@ nlp=spacy.load("en_core_web_sm")
 import en_core_web_sm
 nlp = en_core_web_sm
 
-def process_document(document):
+def process_dataset(document_iter):
     # Dummy processing of documents: classify each document as spam
-    result=td.extract_metrics(text=document.text, lang="en").insert(0, "docno", [document.doc_id], True)
+    result=pd.DataFrame([{'docno': i.doc_id} for i in tqdm(document_iter)])
     return result
 
 
-def process_documents(document_iter):
+def process_metrics(document_iter):
     nlp = spacy.blank("da")
     nlp.add_pipe("textdescriptives/readability")
-    docs = nlp.pipe([doc.text for doc in tqdm(document_iter)])
-    return td.extract_df(docs, include_text = False)
+    docs = nlp.pipe([doc.text[:5000] for doc in tqdm(document_iter)])
+    metrics = td.extract_df(docs, include_text = False)
+    return metrics
 
 
 def plot_data_easy(df):
@@ -46,7 +47,9 @@ if __name__ == '__main__':
     # You can pass as many additional arguments to your program, e.g., via argparse, to modify the behaviour
     
     # process the documents, store results at expected location.
-    processed_documents = process_documents(dataset.docs_iter())
+    processed_dataset=process_dataset(dataset.docs_iter())
+    processed_metrics = process_metrics(dataset.docs_iter())
+    processed_documents = pd.concat([processed_dataset, processed_metrics], axis=1)
     plot_data_easy(processed_documents)
     processed_documents.to_json(output_file, lines=True, orient='records')
     

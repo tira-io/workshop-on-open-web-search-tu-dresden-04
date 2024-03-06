@@ -14,6 +14,10 @@ from tqdm import tqdm
 def process_document(document):
     # Dummy processing of documents: classify each document as spam
     return {'docno': document.doc_id, 
+            'syllable_count': ts.syllable_count(document.text),
+            'sentence_count': ts.sentence_count(document.text),
+            'char_count': ts.char_count(document.text, ignore_spaces=True),
+            'lexicon_count': ts.lexicon_count(document.text),
             'flesch_reading_formula': ts.flesch_reading_ease(document.text), 
             'flesch_kincaid_grade': ts.flesch_kincaid_grade(document.text), 
             'gunning_fog': ts.gunning_fog(document.text),
