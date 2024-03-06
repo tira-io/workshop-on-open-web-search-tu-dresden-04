@@ -56,10 +56,10 @@ class Test_Readability_Func(unittest.TestCase):
         self.assertLessEqual(ts.dale_chall_readability_score(t_doc_simple_language2), ts.dale_chall_readability_score(t_doc_teen3)) 
 
         # readability for a foreign learner of English, recommended score < 25
-        self.assertGreaterEqual(ts.dale_chall_readability_score(t_doc_academic2), ts.dale_chall_readability_score(t_doc_teen2))
-        self.assertGreaterEqual(ts.dale_chall_readability_score(t_doc_academic2), ts.dale_chall_readability_score(t_doc_kids2))
-        self.assertLessEqual(ts.dale_chall_readability_score(t_doc_simple_language1), ts.dale_chall_readability_score(t_doc_kids3))
-        self.assertLessEqual(ts.dale_chall_readability_score(t_doc_simple_language2), ts.dale_chall_readability_score(t_doc_teen3)) 
+        self.assertGreaterEqual(ts.mcalpine_eflaw(t_doc_academic2), ts.dale_chall_readability_score(t_doc_teen2))
+        self.assertGreaterEqual(ts.mcalpine_eflaw(t_doc_academic2), ts.dale_chall_readability_score(t_doc_kids2))
+        self.assertLessEqual(ts.mcalpine_eflaw(t_doc_simple_language1), ts.dale_chall_readability_score(t_doc_kids3))
+        self.assertLessEqual(ts.mcalpine_eflaw(t_doc_simple_language2), ts.dale_chall_readability_score(t_doc_teen3)) 
 
         self.assertLessEqual(ts.mcalpine_eflaw(t_doc_teen3), 25)
         self.assertLessEqual(ts.mcalpine_eflaw(t_doc_kids3), 25) #28
