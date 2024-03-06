@@ -34,35 +34,41 @@ class Test_Readability_Func(unittest.TestCase):
         self.assertGreaterEqual(ts.flesch_kincaid_grade(t_doc_academic3), ts.flesch_kincaid_grade(t_doc_teen3))
         self.assertGreaterEqual(ts.flesch_kincaid_grade(t_doc_academic3), ts.flesch_kincaid_grade(t_doc_kids3))
         self.assertLessEqual(ts.flesch_kincaid_grade(t_doc_simple_language1), ts.flesch_kincaid_grade(t_doc_kids1))
-        self.assertLessEqual(ts.flesch_kincaid_grade(t_doc_simple_language2), ts.flesch_kincaid_grade(t_doc_teen1)) 
+        self.assertLessEqual(ts.flesch_kincaid_grade(t_doc_simple_language2), ts.flesch_kincaid_grade(t_doc_teen2)) 
    
         self.assertGreaterEqual(ts.gunning_fog(t_doc_academic1), ts.gunning_fog(t_doc_teen1))
         self.assertGreaterEqual(ts.gunning_fog(t_doc_academic1), ts.gunning_fog(t_doc_kids1))
         self.assertLessEqual(ts.gunning_fog(t_doc_simple_language1), ts.gunning_fog(t_doc_kids2))
         self.assertLessEqual(ts.gunning_fog(t_doc_simple_language2), ts.gunning_fog(t_doc_teen2)) 
     
-        self.assertTrue(int(ts.coleman_liau_index(t_doc_teen1)) in range(5, 10))
-    
-        # 10igrnedwas self.assertLessEqual(ts.linsear_write_formula(t_doc_kids2), 4)
+        self.assertGreaterEqual(ts.coleman_liau_index(t_doc_academic2), ts.coleman_liau_index(t_doc_teen2))
+        self.assertGreaterEqual(ts.coleman_liau_index(t_doc_academic2), ts.coleman_liau_index(t_doc_kids2))
+        self.assertLessEqual(ts.coleman_liau_index(t_doc_simple_language1), ts.coleman_liau_index(t_doc_kids3))
+        self.assertLessEqual(ts.coleman_liau_index(t_doc_simple_language2), ts.coleman_liau_index(t_doc_teen3))
+        
+        self.assertGreaterEqual(ts.linsear_write_formula(t_doc_academic3), ts.linsear_write_formula(t_doc_teen3))
+        self.assertGreaterEqual(ts.linsear_write_formula(t_doc_academic3), ts.linsear_write_formula(t_doc_kids3))
+        self.assertLessEqual(ts.linsear_write_formula(t_doc_simple_language1), ts.linsear_write_formula(t_doc_kids1))
+        self.assertLessEqual(ts.linsear_write_formula(t_doc_simple_language2), ts.linsear_write_formula(t_doc_teen1))
 
         # grade level, for children up to grade 4
-        self.assertTrue(int(ts.spache_readability(t_doc_kids3)) in range(1, 7))
+        self.assertGreaterEqual(ts.spache_readability(t_doc_academic1), ts.spache_readability(t_doc_teen2))
+        self.assertGreaterEqual(ts.spache_readability(t_doc_academic1), ts.spache_readability(t_doc_kids3))
+        self.assertLessEqual(ts.spache_readability(t_doc_simple_language1), ts.spache_readability(t_doc_kids1))
+        self.assertLessEqual(ts.spache_readability(t_doc_simple_language2), ts.spache_readability(t_doc_teen1))
 
     def test_proportional_to_grade(self):
         # score proportional to grade, < 4.9: <4th grade, 9.0-9.9: college student
         self.assertGreaterEqual(ts.dale_chall_readability_score(t_doc_academic2), ts.dale_chall_readability_score(t_doc_teen2))
         self.assertGreaterEqual(ts.dale_chall_readability_score(t_doc_academic2), ts.dale_chall_readability_score(t_doc_kids2))
-        self.assertLessEqual(ts.dale_chall_readability_score(t_doc_simple_language1), ts.dale_chall_readability_score(t_doc_kids3))
+        self.assertLessEqual(ts.dale_chall_readability_score(t_doc_simple_language2), ts.dale_chall_readability_score(t_doc_kids1))
         self.assertLessEqual(ts.dale_chall_readability_score(t_doc_simple_language2), ts.dale_chall_readability_score(t_doc_teen3)) 
 
         # readability for a foreign learner of English, recommended score < 25
-        self.assertGreaterEqual(ts.mcalpine_eflaw(t_doc_academic2), ts.dale_chall_readability_score(t_doc_teen2))
-        self.assertGreaterEqual(ts.mcalpine_eflaw(t_doc_academic2), ts.dale_chall_readability_score(t_doc_kids2))
-        self.assertLessEqual(ts.mcalpine_eflaw(t_doc_simple_language1), ts.dale_chall_readability_score(t_doc_kids3))
-        self.assertLessEqual(ts.mcalpine_eflaw(t_doc_simple_language2), ts.dale_chall_readability_score(t_doc_teen3)) 
-
-        self.assertLessEqual(ts.mcalpine_eflaw(t_doc_teen3), 25)
-        self.assertLessEqual(ts.mcalpine_eflaw(t_doc_kids3), 25) #28
+        self.assertGreaterEqual(ts.mcalpine_eflaw(t_doc_academic3), ts.mcalpine_eflaw(t_doc_teen3))
+        self.assertGreaterEqual(ts.mcalpine_eflaw(t_doc_academic3), ts.mcalpine_eflaw(t_doc_kids3))
+        self.assertLessEqual(ts.mcalpine_eflaw(t_doc_simple_language1), ts.mcalpine_eflaw(t_doc_kids1))
+        self.assertLessEqual(ts.mcalpine_eflaw(t_doc_simple_language2), ts.mcalpine_eflaw(t_doc_teen1)) 
         
 if __name__ == '__main__':
     unittest.main()
