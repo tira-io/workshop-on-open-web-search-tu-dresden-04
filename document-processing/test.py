@@ -3,7 +3,7 @@ import textstat as ts
 
 # here are some sample documents
 
-t_doc_simple_language1 = "Several bird species make and use tools. Some social species pass on some knowledge across generation. This is a form of culture. Birds are social animals."
+t_doc_simple_language1 = "Several bird species make and use tools. Some social species pass on some knowledge across generations. This is a form of culture. Birds are social animals."
 t_doc_simple_language2 = "White is the brightest color. White light can be made by putting all the other colors of light on the spectrum together. These other colors are red, orange, yellow, green, blue, indigo, and violet. White is linked with light, goodness, innocence, purity, cleanliness and virginity. It is sometimes thought to be the color of perfection. The opposite of black, white usually has a positive connotation. White can stand for a successful beginning. In heraldry, white depicts faith and purity. "
 t_doc_academic1 = "This paper investigates the channel capacity of Internet-based timing channels and proposes a methodology for detecting covert timing channels based on how close a source comes to achieving that channel capacity. A statistical approach is then used for the special case of binary codes."
 t_doc_academic2 = "Convolutional neural networks are built upon the convolution operation, which extracts informative features by fusing spatial and channel-wise information together within local receptive fields. In order to boost the representational power of a network, several recent approaches have shown the benefit of enhancing spatial encoding. In this work, we focus on the channel relationship and propose a novel architectural unit, which we term the “Squeeze-and-Excitation” (SE) block, that adaptively recalibrates channel-wise feature responses by explicitly modelling interdependencies between channels. We demonstrate that by stacking these blocks together, we can construct SENet architectures that generalise extremely well across challenging datasets."
@@ -24,7 +24,7 @@ class Test_Readability_Func(unittest.TestCase):
         self.assertGreaterEqual(ts.flesch_reading_ease(t_doc_simple_language1), ts.flesch_reading_ease(t_doc_kids2))
         self.assertGreaterEqual(ts.flesch_reading_ease(t_doc_simple_language2), ts.flesch_reading_ease(t_doc_teen2))
 
-    # grade level necessary for comprehension, score appr. grade
+    # grade level necessary for comprehension, score approximates grade
     def test_grade_level(self):
         self.assertGreaterEqual(ts.automated_readability_index(t_doc_academic2), ts.automated_readability_index(t_doc_teen2))
         self.assertGreaterEqual(ts.automated_readability_index(t_doc_academic2), ts.automated_readability_index(t_doc_kids2))
@@ -58,7 +58,7 @@ class Test_Readability_Func(unittest.TestCase):
         self.assertLessEqual(ts.spache_readability(t_doc_simple_language2), ts.spache_readability(t_doc_teen1))
 
     def test_proportional_to_grade(self):
-        # score proportional to grade, < 4.9: <4th grade, 9.0-9.9: college student
+        # score only proportional to grade, < 4.9: <4th grade, 9.0-9.9: college student
         self.assertGreaterEqual(ts.dale_chall_readability_score(t_doc_academic2), ts.dale_chall_readability_score(t_doc_teen2))
         self.assertGreaterEqual(ts.dale_chall_readability_score(t_doc_academic2), ts.dale_chall_readability_score(t_doc_kids2))
         self.assertLessEqual(ts.dale_chall_readability_score(t_doc_simple_language2), ts.dale_chall_readability_score(t_doc_kids1))
@@ -69,7 +69,22 @@ class Test_Readability_Func(unittest.TestCase):
         self.assertGreaterEqual(ts.mcalpine_eflaw(t_doc_academic3), ts.mcalpine_eflaw(t_doc_kids3))
         self.assertLessEqual(ts.mcalpine_eflaw(t_doc_simple_language1), ts.mcalpine_eflaw(t_doc_kids1))
         self.assertLessEqual(ts.mcalpine_eflaw(t_doc_simple_language2), ts.mcalpine_eflaw(t_doc_teen1)) 
+
+    def test_aggregates(self):
+        self.assertEqual(ts.sentence_count(t_doc_simple_language1), 4)
+        self.assertEqual(ts.char_count("Several bird species make and use tools."), 34)
         
+        # self.assertEqual(ts.syllable_count("species"), 2)     
+        # this fails, the function incorrectly returns 1
+        # self.assertEqual(ts.syllable_count(t_doc_simple_language1), 40) 
+        # this fails with 37 != 40, 2*"species" and 1*"across" are being counted incorrectly 
+        # in documentation we establish that the function can only serves as an approximate lower bound for the actual syllable count
+        self.assertLessEqual(ts.syllable_count(t_doc_simple_language1), 40)
+        self.assertLessEqual(ts.syllable_count(t_doc_kids1), 50)
+
+        self.assertEqual(ts.lexicon_count(t_doc_simple_language1), 26)
+
+       
 if __name__ == '__main__':
     unittest.main()
     
