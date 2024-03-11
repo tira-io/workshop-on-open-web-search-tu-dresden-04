@@ -14,7 +14,6 @@ from tqdm import tqdm
 nlp=spacy.load("en_core_web_lg")
 
 def process_dataset(document_iter):
-    # Dummy processing of documents: classify each document as spam
     result=pd.DataFrame([{'docno': i.doc_id} for i in tqdm(document_iter)])
     return result
 
@@ -41,6 +40,6 @@ if __name__ == '__main__':
     processed_dataset=process_dataset(dataset.docs_iter())
     processed_metrics = process_metrics(dataset.docs_iter())
     processed_documents = pd.concat([processed_dataset, processed_metrics], axis=1)
-    #plot_data_easy(processed_documents)
+    plot_data_easy(processed_documents)
     processed_documents.to_json(output_file, lines=True, orient='records')
     
