@@ -11,7 +11,7 @@ import json
 import gzip
 from tqdm import tqdm
 
-nlp=spacy.load("en_core_web_sm")
+nlp=spacy.load("en_core_web_lg")
 
 def process_dataset(document_iter):
     # Dummy processing of documents: classify each document as spam
@@ -24,12 +24,6 @@ def process_metrics(document_iter):
     docs = nlp.pipe([doc.text[:5000] for doc in tqdm(document_iter)])
     metrics = td.extract_df(docs, include_text = False)
     return metrics
-
-
-def plot_data_easy(df):
-    fig = df.plot(kind='bar',  
-        figsize=(20, 16), fontsize=26).get_figure()
-    fig.savefig('test.pdf')
 
 if __name__ == '__main__':
     # In the TIRA sandbox, this is the injected ir_dataset, injected via the environment variable TIRA_INPUT_DIRECTORY

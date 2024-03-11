@@ -5,6 +5,6 @@ ADD baseline_document_processing.py /code/baseline_document_processing.py
 
 RUN pip3 install matplotlib textstat spacy textdescriptives \
 	&& rm -rf /root/.cache \
-	&& python3 -m spacy download en_core_web_sm
+	&& python3 -m spacy download en_core_web_lg
 
 ENTRYPOINT [ "python3", "/code/baseline_document_processing.py" ]

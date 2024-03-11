@@ -33,13 +33,6 @@ def process_document(document):
 def process_documents(document_iter):
     return pd.DataFrame([process_document(i) for i in tqdm(document_iter)])
 
-
-# plot the data in an easy bar plot
-def plot_data_easy(df):
-    fig = df.plot(kind='bar',  
-        figsize=(20, 16), fontsize=26).get_figure()
-    fig.savefig('test.pdf')
-    
     
 if __name__ == '__main__':
     # In the TIRA sandbox, this is the injected ir_dataset, injected via the environment variable TIRA_INPUT_DIRECTORY
